@@ -12,6 +12,11 @@ namespace BlackJack
         static Random random = new Random();
         public static void game()
         {
+            if (Program.currentPlayer.chips == 0)
+            {
+                Console.WriteLine("You are out of chips. Game over");
+                System.Environment.Exit(0);
+            }
             Console.WriteLine("How much are you betting?");
             Console.WriteLine($"Current Player Chips: {Program.currentPlayer.chips}");
             string input = Console.ReadLine();
@@ -19,6 +24,7 @@ namespace BlackJack
             if (!int.TryParse(input, out num))
             {
                 Console.WriteLine("Enter a valid response");
+                Console.ReadKey(); Console.Clear();
                 game();
             }
             int bet = Convert.ToInt32(input);
@@ -26,11 +32,6 @@ namespace BlackJack
             {
                 Console.WriteLine("You don't have the right number of chips");
                 game();
-            }
-            else if (Program.currentPlayer.chips == 0)
-            {
-                Console.WriteLine("You are out of chips. Game over");
-                System.Environment.Exit(0);
             }
             else
             {
