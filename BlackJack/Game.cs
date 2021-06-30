@@ -14,7 +14,14 @@ namespace BlackJack
         {
             Console.WriteLine("How much are you betting?");
             Console.WriteLine($"Current Player Chips: {Program.currentPlayer.chips}");
-            int bet = Convert.ToInt32(Console.ReadLine());
+            string input = Console.ReadLine();
+            int num = -1;
+            if (!int.TryParse(input, out num))
+            {
+                Console.WriteLine("Enter a valid response");
+                game();
+            }
+            int bet = Convert.ToInt32(input);
             if (bet > Program.currentPlayer.chips)
             {
                 Console.WriteLine("You don't have the right number of chips");
