@@ -44,6 +44,10 @@ namespace BlackJack
                 Console.WriteLine("Congratulations you hit blackjack");
                 Console.WriteLine($"Winnings: {bet}");
                 Program.currentPlayer.chips += bet;
+                Program.currentPlayer.cardValue = 0;
+                Program.dealer.cardValue = 0;
+                Console.ReadKey(); Console.Clear();
+                game();
             }
             Program.dealer.cardValue += random.Next(1, 12);
             Program.dealer.cardValue += random.Next(1, 12);
@@ -55,6 +59,9 @@ namespace BlackJack
             {
                 Console.WriteLine("Unlucky");
                 Program.currentPlayer.chips -= bet;
+                Program.currentPlayer.cardValue = 0;
+                Program.dealer.cardValue = 0;
+                Console.ReadKey(); Console.Clear();
             }
             choice(bet);
         }
@@ -88,6 +95,7 @@ namespace BlackJack
                         Console.WriteLine($"You busted and lost {bet} chips");
                         Program.currentPlayer.chips -= bet;
                         Program.currentPlayer.cardValue = 0;
+                        Program.dealer.cardValue = 0;
                         Console.ReadKey(); Console.Clear();
                         game();
                         break;
