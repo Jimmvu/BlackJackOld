@@ -106,7 +106,6 @@ namespace BlackJack
                     Console.ReadKey(); Console.Clear();
                     choice(bet);
                     break;
-
             }
         }
         public static void stay(int bet)
@@ -116,7 +115,17 @@ namespace BlackJack
             Console.WriteLine(dcard);
             Program.dealer.cardValue += dcard;
             Console.WriteLine($"Dealer: {Program.dealer.cardValue} card value");
-            if (Program.dealer.cardValue > Program.currentPlayer.cardValue)
+            if (Program.dealer.cardValue > 21)
+            {
+                Console.WriteLine($"The Dealer busted and you won {bet} chips");
+                Program.currentPlayer.chips += bet;
+                Program.currentPlayer.cardValue = 0;
+                Program.dealer.cardValue = 0;
+                Console.ReadKey(); Console.Clear();
+                game();
+
+            }
+            else if (Program.dealer.cardValue > Program.currentPlayer.cardValue)
             {
                 Console.WriteLine("The Dealer beat your hand.");
                 Program.currentPlayer.chips -= bet;
@@ -135,7 +144,7 @@ namespace BlackJack
                 game();
 
             }
-            else if (Program.currentPlayer.cardValue == 21)
+            else if (Program.dealer.cardValue == 21)
             {
                 Console.WriteLine($"The Dealer hit 21 and you lost {bet} chips!");
                 Program.currentPlayer.chips -= bet;
@@ -143,24 +152,12 @@ namespace BlackJack
                 Program.dealer.cardValue = 0;
                 Console.ReadKey(); Console.Clear();
                 game();
-                
-            }
-            else if (Program.currentPlayer.cardValue > 21)
-            {
-                Console.WriteLine($"The Dealer busted and you won {bet} chips");
-                Program.currentPlayer.chips += bet;
-                Program.currentPlayer.cardValue = 0;
-                Program.dealer.cardValue = 0;
-                Console.ReadKey(); Console.Clear();
-                game();
-                
             }
             else
             {
                 stay(bet);
             }
-        }
-            
+        } 
         public static void Display()
         {
             Console.WriteLine($"{Program.currentPlayer.name} card value: {Program.currentPlayer.cardValue}");
